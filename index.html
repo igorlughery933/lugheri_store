@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUGHERI STORE</title>
+<style>
+:root{--gold:#d4af37;--gold2:#f1d77a;--black:#090909;--card:#141414;--white:#fff;--muted:#b8b8b8}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--black);color:var(--white)}
+header{position:sticky;top:0;z-index:10;background:rgba(9,9,9,.96);border-bottom:1px solid #2b2b2b}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;gap:22px;padding:12px 18px}
+.logo{height:58px;width:auto;object-fit:contain;border-radius:4px}.brand{font-weight:800;letter-spacing:2px;color:var(--gold2);font-size:18px;margin-right:auto}
+nav{display:flex;gap:18px;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;font-size:14px}nav a:hover{color:var(--gold2)}
+.hero{min-height:430px;display:grid;place-items:center;text-align:center;padding:60px 20px;background:radial-gradient(circle at center,#2b240f 0,#090909 55%)}
+.hero h1{font-size:clamp(40px,8vw,78px);margin:0;color:var(--gold2);letter-spacing:5px}.hero p{font-size:18px;color:#ddd}.btn{display:inline-block;padding:13px 24px;border-radius:5px;background:var(--gold);color:#090909;font-weight:800;text-decoration:none;border:0;cursor:pointer}
+section{max-width:1200px;margin:auto;padding:55px 18px}h2{text-align:center;color:var(--gold2);font-size:30px;margin-top:0}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.cat{background:var(--card);border:1px solid #292929;padding:22px 12px;text-align:center;border-radius:10px;cursor:pointer}.cat:hover{border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.product{background:var(--card);border:1px solid #282828;border-radius:10px;overflow:hidden}.product img{width:100%;height:230px;object-fit:cover;background:#202020}.product .info{padding:15px}.product h3{margin:0 0 7px}.price{color:var(--gold2);font-size:20px;font-weight:800;margin:8px 0}.muted{color:var(--muted);font-size:14px}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1;padding:10px;border-radius:5px;border:1px solid #444;background:#1e1e1e;color:#fff;cursor:pointer}.actions .buy{background:var(--gold);color:#111;border-color:var(--gold)}
+.admin{background:#0f0f0f;border-top:1px solid #292929}.panel{background:#151515;border:1px solid #303030;border-radius:10px;padding:20px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}label{display:block;color:#ddd;font-size:13px;margin-bottom:5px}input,select,textarea{width:100%;padding:11px;border-radius:5px;border:1px solid #444;background:#0b0b0b;color:#fff}textarea{min-height:90px;resize:vertical}.form-actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}.danger{background:#321414!important;color:#ffb1b1!important;border-color:#5b2222!important}
+footer{text-align:center;padding:35px 18px;border-top:1px solid #292929;color:#aaa}.wa{position:fixed;right:18px;bottom:18px;background:#20b958;color:#fff;padding:14px 18px;border-radius:30px;text-decoration:none;font-weight:800;z-index:20}
+@media(max-width:700px){.nav{flex-wrap:wrap}.brand{order:2;width:100%;text-align:center}.logo{height:48px}nav{width:100%;justify-content:center}.hero{min-height:370px}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+<img class="logo" src="logo.jpg" alt="LUGHERI STORE">
+<div class="brand">LUGHERI STORE</div>
+<nav><a href="#inicio">Início</a><a href="#categorias">Categorias</a><a href="#produtos">Produtos</a><a href="#ofertas">Ofertas</a><a href="#editar">Editar produtos</a></nav>
+</div></header>
+
+<main>
+<section class="hero" id="inicio"><div><h1>LUGHERI STORE</h1><p>Estilo em cada escolha.</p><a class="btn" href="#produtos">VER PRODUTOS</a></div></section>
+
+<section id="categorias"><h2>Compre por categoria</h2><div class="categories" id="categoryList"></div></section>
+
+<section id="produtos"><h2>Produtos</h2><div class="grid" id="productGrid"></div></section>
+
+<section id="ofertas"><h2>Ofertas</h2><div class="grid" id="offerGrid"></div></section>
+
+<section class="admin" id="editar"><h2>Editar produtos</h2>
+<div class="panel">
+<p class="muted">Cadastre e altere produtos diretamente nesta página. As alterações ficam salvas neste navegador. Para publicar as alterações em um site hospedado, substitua o arquivo pelo novo arquivo exportado.</p>
+<div class="formgrid">
+<div><label>Nome</label><input id="name"></div>
+<div><label>Categoria</label><select id="category"></select></div>
+<div><label>Preço</label><input id="price" placeholder="R$ 0,00"></div>
+<div><label>Tamanhos</label><input id="sizes" placeholder="P, M, G, GG"></div>
+<div><label>Cores</label><input id="colors" placeholder="Preto, branco..."></div>
+<div><label>Imagem (URL)</label><input id="image" placeholder="https://..."></div>
+</div>
+<div style="margin-top:12px"><label>Descrição</label><textarea id="description"></textarea></div>
+<div class="form-actions">
+<button class="btn" onclick="addProduct()">Adicionar produto</button>
+<button class="btn" onclick="exportData()">Exportar catálogo</button>
+<button class="btn danger" onclick="resetData()">Restaurar exemplo</button>
+</div>
+</div></section>
+</main>
+
+<footer>LUGHERI STORE • Estilo em cada escolha<br><span class="muted">Edite produtos, preços, tamanhos, cores e imagens pelo painel acima.</span></footer>
+<a class="wa" id="wa" href="#" target="_blank">WhatsApp</a>
+
+<script>
+const categories=["Camisas","Camisas Tailandesas","Bermudas","Regatas","Kanner","Acessórios","Conjuntos","Perfumes","Chuteiras","Óculos Juliette"];
+const sample=[
+{name:"Produto de exemplo",category:"Camisas",price:"R$ 0,00",sizes:"P, M, G, GG",colors:"A definir",image:"",description:"Edite este produto no painel abaixo."},
+{name:"Produto de exemplo",category:"Acessórios",price:"R$ 0,00",sizes:"Único",colors:"A definir",image:"",description:"Edite este produto no painel abaixo."}
+];
+let products=JSON.parse(localStorage.getItem("lugheri_products")||"null")||sample;
+const catList=document.getElementById("categoryList"), grid=document.getElementById("productGrid"), offers=document.getElementById("offerGrid"), cat=document.getElementById("category");
+categories.forEach(c=>{cat.insertAdjacentHTML("beforeend",`<option>${c}</option>`);catList.insertAdjacentHTML("beforeend",`<div class="cat" onclick="filterCat('${c.replaceAll("'","\\'")}')">${c}</div>`)});
+function render(list=products){
+grid.innerHTML=list.map((p,i)=>card(p,i)).join("");
+offers.innerHTML=list.filter(p=>p.offer).map((p,i)=>card(p,i)).join("")||'<p class="muted" style="grid-column:1/-1;text-align:center">Nenhuma oferta cadastrada.</p>';
+}
+function card(p,i){
+return `<article class="product"><img src="${p.image||'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="500"><rect width="100%" height="100%" fill="#202020"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#d4af37" font-size="32">LUGHERI STORE</text></svg>')}" alt="${esc(p.name)}"><div class="info"><h3>${esc(p.name)}</h3><div class="price">${esc(p.price)}</div><div class="muted">Tamanhos: ${esc(p.sizes||"—")}</div><div class="muted">Cores: ${esc(p.colors||"—")}</div><p class="muted">${esc(p.description||"")}</p><div class="actions"><button onclick="editProduct(${i})">Editar</button><button class="buy" onclick="buy('${esc(p.name)}')">Comprar</button></div></div></article>`
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+function addProduct(){const p={name:name.value.trim()||"Novo produto",category:category.value,price:price.value||"R$ 0,00",sizes:sizes.value,colors:colors.value,image:image.value,description:description.value};products.push(p);save();clearForm();location.hash="produtos"}
+function editProduct(i){const p=products[i];name.value=p.name;category.value=p.category;price.value=p.price;sizes.value=p.sizes;colors.value=p.colors;image.value=p.image;description.value=p.description;document.getElementById("editar").scrollIntoView({behavior:"smooth"});products.splice(i,1);save()}
+function filterCat(c){render(products.filter(p=>p.category===c));document.getElementById("produtos").scrollIntoView({behavior:"smooth"})}
+function save(){localStorage.setItem("lugheri_products",JSON.stringify(products));render()}
+function clearForm(){name.value=price.value=sizes.value=colors.value=image.value=description.value=""}
+function resetData(){if(confirm("Restaurar os produtos de exemplo?")){products=sample;save()}}
+function exportData(){const blob=new Blob([JSON.stringify(products,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="lugheri-catalogo.json";a.click()}
+function buy(n){const phone="";const msg=encodeURIComponent("Olá! Tenho interesse no produto: "+n); if(phone) window.open("https://wa.me/"+phone+"?text="+msg); else alert("Adicione o número do WhatsApp da loja no código do site para ativar este botão.")}
+render();
+</script>
+</body></html>
